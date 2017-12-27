@@ -4,6 +4,7 @@
   "description": "",
   "main": "handler.js",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "dotenv": "^4.0.0",
     "mongoose": "^4.13.7"
   },
@@ -11,8 +12,9 @@
     "serverless-offline": "^3.16.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "offline": "sls offline start --skipCacheInvalidation"
   },
-  "author": "",
+  "author": "Adnan Rahić",
   "license": "ISC"
 }
