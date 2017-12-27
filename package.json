@@ -4,6 +4,7 @@
   "description": "",
   "main": "handler.js",
   "dependencies": {
+    "dotenv": "^4.0.0",
     "mongoose": "^4.13.7"
   },
   "devDependencies": {

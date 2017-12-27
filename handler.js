@@ -1,17 +1,13 @@
 'use strict';
 
+require('dotenv').config({ path: './variables.env' });
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://MONGODB_URI:27017/db', { useMongoClient: true });
+mongoose.connect(process.env.DB, { useMongoClient: true });
 mongoose.Promise = global.Promise;
 const Note = mongoose.model('Note', { content: String });
 
 module.exports.create = (event, context, callback) => {
-  const data = JSON.parse(event.body);
-  const params = {
-    content: data.content
-  };
-
-  Note.create(params)
+  Note.create(JSON.parse(event.body))
     .then(note => callback(null, {
       statusCode: 200,
       body: JSON.stringify(note)
@@ -24,9 +20,7 @@ module.exports.create = (event, context, callback) => {
 }
 
 module.exports.getOne = (event, context, callback) => {
-  const id = event.pathParameters.id;
-
-  Note.findById(id)
+  Note.findById(event.pathParameters.id)
     .then(note => callback(null, {
       statusCode: 200,
       body: JSON.stringify(note)
@@ -52,8 +46,7 @@ module.exports.getAll = (event, context, callback) => {
 };
 
 module.exports.update = (event, context, callback) => {
-  const data = JSON.parse(event.body);
-  Note.findByIdAndUpdate(event.pathParameters.id, data, { new: true })
+  Note.findByIdAndUpdate(event.pathParameters.id, JSON.parse(event.body), { new: true })
     .then(note => callback(null, {
       statusCode: 200,
       body: JSON.stringify(note)
