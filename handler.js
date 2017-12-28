@@ -1,29 +1,8 @@
 'use strict';
 
 require('dotenv').config({ path: './variables.env' });
-const bluebird = require('bluebird');
-const mongoose = require('mongoose');
-mongoose.Promise = bluebird;
-let cachedDb;
-const Note = mongoose.model('Note', { content: String });
-const Report = mongoose.model('Report', { content: String, env: String, createdAt: { type: Date, default: Date.now } });
-
-function createReport(env) {
-  Report.create({ content: 'Connection request', env: env });
-}
-
-function connectToDatabase() {
-  if (cachedDb) {
-    console.log('=> using cached database instance');
-    createReport('using cached database instance');
-    return Promise.resolve();
-  }
-
-  console.log('=> using new database instance');
-  createReport('using new database instance');
-  return mongoose.connect(process.env.DB, { useMongoClient: true })
-    .then(db => { cachedDb = db; });
-}
+const connectToDatabase = require('./db');
+const Note = require('./models/Note');
 
 module.exports.create = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
