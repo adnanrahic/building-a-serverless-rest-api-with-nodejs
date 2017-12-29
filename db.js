@@ -1,6 +1,5 @@
-const bluebird = require('bluebird');
 const mongoose = require('mongoose');
-mongoose.Promise = bluebird;
+mongoose.Promise = global.Promise;
 let isConnected;
 const createReport = require('./helpers/createReport');
 
