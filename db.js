@@ -1,21 +1,16 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 let isConnected;
-const createReport = require('./helpers/createReport');
 
-function connectToDatabase() {
-  if (isConnected) { // finish this
+module.exports = connectToDatabase = () => {
+  if (isConnected) {
     console.log('=> using existing database connection');
-    createReport('using existing database connection');
     return Promise.resolve();
   }
 
   console.log('=> using new database connection');
-  createReport('using new database connection');
-  return mongoose.connect(process.env.DB, { useMongoClient: true })
+  return mongoose.connect(process.env.DB)
     .then(db => { 
-      isConnected = db.readyState;
+      isConnected = db.connections[0].readyState;
     });
-}
-
-module.exports = connectToDatabase;
+};

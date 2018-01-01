@@ -1,4 +1,4 @@
-service: sls-rest-api
+service: rest-api
 
 provider:
   name: aws

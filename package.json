@@ -3,17 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "handler.js",
-  "dependencies": {
-    "dotenv": "^4.0.0",
-    "mongoose": "^4.13.7"
+  "scripts": {
+    "offline": "sls offline start --skipCacheInvalidation"
   },
+  "keywords": [],
+  "author": "Adnan Rahić",
+  "license": "MIT",
   "devDependencies": {
     "serverless-offline": "^3.16.0"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "offline": "sls offline start --skipCacheInvalidation"
-  },
-  "author": "Adnan Rahić",
-  "license": "ISC"
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "mongoose": "^5.0.0-rc0"
+  }
 }
